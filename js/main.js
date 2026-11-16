@@ -1,8 +1,9 @@
-import { getData } from "./serves.js";
+import { getData } from "./api.js";
 
 const category = [];
 let currentFilter = "";
 let allChannels = [];
+const black_list = [];
 
 const menu = document.getElementById("menu_icon");
 const category_popup = document.getElementById("category_popup");
@@ -11,6 +12,14 @@ const search = document.getElementById("search");
 const channels_section = document.getElementById("channels_section");
 const category_div = document.getElementById("category_div");
 const all_channels = document.getElementById("all_channels");
+const favorite_channels = document.getElementById("favorite_channels");
+
+// View channels.
+const videoElement = document.getElementById("video");
+const name_channel = document.getElementById("name_channel");
+const desc_chaennel = document.getElementById("desc_chaennel");
+const category_name = document.getElementById("category_name");
+const playing_now = document.getElementById("playing_now");
 
 menu.addEventListener("click", (e) => {
     category_popup.classList.remove('-translate-x-full');
@@ -32,7 +41,20 @@ all_channels?.addEventListener("click", (e)=>{
     category_div.querySelectorAll("article").forEach(item => {
         item.classList.remove("active");
     });
+    favorite_channels.classList.remove("active");
     all_channels.classList.add("active");
+    category_popup.classList.add('-translate-x-full');
+    document.body.classList.remove("overflow-hidden");
+})
+
+favorite_channels?.addEventListener("click", (e)=>{
+    channels_section.innerHTML = "";
+    channels(allChannels);
+    category_div.querySelectorAll("article").forEach(item => {
+        item.classList.remove("active");
+    });
+    favorite_channels.classList.add("active");
+    all_channels.classList.remove("active");
     category_popup.classList.add('-translate-x-full');
     document.body.classList.remove("overflow-hidden");
 })
@@ -58,73 +80,78 @@ function renderFilteredChannels() {
 }
 
 function channels(channel) {
+    all_channels.classList.add("active");
     channel.forEach(element => {
-        const article = document.createElement("article");
-        article.dataset.id = element.id;
-        article.className = "flex items-center justify-between p-2 border border-[#07209C] rounded-lg mb-2 hover:bg-[#030A44] cursor-pointer";
-        article.innerHTML = `
-            <div class="flex gap-5 items-center h-fit w-full ">
-                <div class="bg-[#0B32F4] w-10 h-10 flex items-center justify-center text-lg font-bold rounded-lg italic text-white">${element.countryCode || element.country.slice(0, 2)}</div>
-                <div class="">
-                    <h2 class="font-bold text-white ">${element.name}</h2>
-                    <p class="text-xs text-gray-400">${element.category || 'Description'}</p>
+        if(element.isBlackListe === false){
+            const article = document.createElement("article");
+            article.dataset.id = element.id;
+            article.className = "flex items-center justify-between p-2 border border-[#07209C] rounded-lg mb-2 hover:bg-[#030A44] cursor-pointer";
+            article.innerHTML = `
+                <div class="flex gap-5 items-center h-fit w-full ">
+                    <div class="bg-[#0B32F4] w-10 h-10 flex items-center justify-center text-lg font-bold rounded-lg italic text-white">${element.countryCode || element.country.slice(0, 2)}</div>
+                    <div class="">
+                        <h2 class="font-bold text-white ">${element.name}</h2>
+                        <p class="text-xs text-gray-400">${element.category || 'Description'}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="flex items-center gap-1">
-                <p class="text-xs text-gray-400">${element.channelNumber    }</p>
-                <div class="relative">
-                    <div class="absolute w-2 h-2 bg-[#2749F5] rounded-2xl animate-ping"></div>
-                    <div class="relative w-2 h-2 bg-[#2749F5] rounded-2xl "></div>
-                </div>
-            </div>`;
-        
-        channels_section.append(article);
-
-        article.addEventListener("click", (e) => {
-            const channel_active = e.currentTarget.dataset.id;
+                <div class="flex items-center gap-1">
+                    <p class="text-xs text-gray-400">${element.channelNumber}</p>
+                    <div class="relative">
+                        <div class="absolute w-2 h-2 bg-[#2749F5] rounded-2xl animate-ping"></div>
+                        <div class="relative w-2 h-2 bg-[#2749F5] rounded-2xl "></div>
+                    </div>
+                </div>`;
             
-            const finded_channel = allChannels.find(item => item.id === channel_active);
-            console.log("Selected Channel:", finded_channel);
+            channels_section.append(article);
 
-            if (finded_channel && finded_channel.streamUrl) {
-                const videoElement = document.getElementById("video");
-                const name_channel = document.getElementById("name_channel");
-                const desc_chaennel = document.getElementById("desc_chaennel");
-                const category_name = document.getElementById("category_name");
-                const playing_now = document.getElementById("playing_now");
+            article.addEventListener("click", (e) => {
+                const channel_active = e.currentTarget.dataset.id;
                 
-                if (videoElement) {
-                    if (name_channel) name_channel.textContent = finded_channel.name;
-                    if (desc_chaennel) desc_chaennel.textContent = finded_channel.channelNumber || '';
-                    if (category_name) category_name.textContent = finded_channel.category || '';
-                    if (playing_now) playing_now.textContent = finded_channel.epg?.currentProgram || 'Live Stream';
+                const finded_channel = allChannels.find(item => item.id === channel_active);
+                console.log("Selected Channel:", finded_channel);
 
-                    const streamUrl = finded_channel.streamUrl;
+                if (finded_channel && finded_channel.streamUrl) {
+                    // const videoElement = document.getElementById("video");
+                    // const name_channel = document.getElementById("name_channel");
+                    // const desc_chaennel = document.getElementById("desc_chaennel");
+                    // const category_name = document.getElementById("category_name");
+                    // const playing_now = document.getElementById("playing_now");
+                    
+                    if (videoElement) {
+                        if (name_channel) name_channel.textContent = finded_channel.name;
+                        if (desc_chaennel) desc_chaennel.textContent = finded_channel.channelNumber || '';
+                        if (category_name) category_name.textContent = finded_channel.category || '';
+                        if (playing_now) playing_now.textContent = finded_channel.epg?.currentProgram || 'Live Stream';
 
-                    if (window.Hls && Hls.isSupported()) {
-                        if (window.currentHlsPlayer) {
-                            window.currentHlsPlayer.destroy();
+                        const streamUrl = finded_channel.streamUrl;
+
+                        if (window.Hls && Hls.isSupported()) {
+                            if (window.currentHlsPlayer) {
+                                window.currentHlsPlayer.destroy();
+                            }
+                            const hls = new Hls();
+                            window.currentHlsPlayer = hls;
+                            hls.loadSource(streamUrl);
+                            hls.attachMedia(videoElement);
+                            hls.on(hls.Events.MANIFEST_PARSED, () => {
+                                videoElement.play().catch(err => console.log("Auto-play prevented:", err));
+                            });
+                        } 
+                        else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) {
+                            videoElement.src = streamUrl;
+                            videoElement.addEventListener('loadedmetadata', () => {
+                                videoElement.play().catch(err => console.log("Auto-play prevented:", err));
+                            });
+                        } else {
+                            videoElement.src = streamUrl;
+                            videoElement.play().catch(err => console.log("Playback error:", err));
                         }
-                        const hls = new Hls();
-                        window.currentHlsPlayer = hls;
-                        hls.loadSource(streamUrl);
-                        hls.attachMedia(videoElement);
-                        hls.on(hls.Events.MANIFEST_PARSED, () => {
-                            videoElement.play().catch(err => console.log("Auto-play prevented:", err));
-                        });
-                    } 
-                    else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) {
-                        videoElement.src = streamUrl;
-                        videoElement.addEventListener('loadedmetadata', () => {
-                            videoElement.play().catch(err => console.log("Auto-play prevented:", err));
-                        });
-                    } else {
-                        videoElement.src = streamUrl;
-                        videoElement.play().catch(err => console.log("Playback error:", err));
                     }
                 }
-            }
-        });
+            });
+        } else {
+            black_list.push(element);
+        }
     });
 }
 

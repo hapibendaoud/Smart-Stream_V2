@@ -29,3 +29,7 @@ export async function getData(){
         loading_category.classList.add("hidden");
     }
 }
+
+async function updateChannel(params) {
+    
+}
