@@ -1,0 +1,95 @@
+<div align="center">
+
+# 📺 Smart Stream
+
+**A modern, lightweight, and responsive IPTV web application for streaming live channels.**
+
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow.svg?style=for-the-badge&logo=javascript)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.0+-38B2AC.svg?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![HTML5](https://img.shields.io/badge/HTML5-Video_API-E34F26.svg?style=for-the-badge&logo=html5)](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video)
+
+---
+
+</div>
+
+## 📌 Project Overview
+
+**Smart Stream** is a slick, single-page IPTV client designed to give users an effortless channel-browsing experience. Featuring an integrated HTML5 video engine, instant live search, dynamic country/category filtering, and modern responsive design, Smart Stream turns raw stream data into a rich streaming experience.
+
+---
+
+## ✨ Features
+
+- ⚡ **Instant Live Search** — Filter through channels dynamically with real-time text matching.
+- 🌍 **Dynamic Country & Category Grouping** — Automated parsing and categorization of channels by country code.
+- 🎬 **HTML5 Embedded Stream Player** — Seamless media loading with integrated channel info and EPG program details.
+- 📱 **Responsive Side Drawer** — Smooth off-canvas category navigation built with Tailwind CSS animations.
+- 🔴 **Live Status Indicators** — Visual pulse effects for active channels and stream indicators.
+- 📦 **Modular ES6 Architecture** — Clean separation between data fetching, state management, and UI rendering.
+
+---
+
+## 🛠️ Tech Stack & Architecture
+
+- **Frontend:** HTML5, Tailwind CSS
+- **Scripting:** Modern JavaScript (ES6+ Modules, Async/Await)
+- **Data Source:** Fetch API retrieving JSON stream data
+
+### Project Directory Layout
+
+```text
+SmartStream/
+├── index.html       # Single Page Application structure & layout
+├── src/
+│   └── output.css   # Compiled Tailwind CSS styles
+├── js/
+│   ├── main.js      # Main controller: State, DOM generation, & event handlers
+│   └── serves.js    # Data service module (Async Fetch API engine)
+└── data/
+    └── data.json    # Channel metadata, logos, EPG info & stream links
+```
+
+---
+
+## 💡 What I Learned During Development
+
+Building Smart Stream provided hands-on experience across key web development concepts:
+
+### 1. Modern Modular JavaScript (ES6)
+- **ES Modules (`import` / `export`)**: Structured the project by separating the data fetching engine (`serves.js`) from the application logic (`main.js`).
+- **Async Execution (`async/await` & Fetch API)**: Learned to handle asynchronous data flow safely with `try...catch` blocks and HTTP status checks (`response.ok`).
+
+### 2. State Management & Data Transformation
+- **Array Processing (`.filter()`, `.find()`, `.reduce()`)**: Mastered dynamic list manipulation to aggregate raw channel data by country and execute real-time searches without page reloads.
+- **Data Binding with `data-*` Attributes**: Connected HTML elements directly to JavaScript state objects using custom data attributes (`dataset.id`).
+
+### 3. HTML5 Video API Management
+- Dynamic source updating using dynamic node injection.
+- Managing video engine loading methods (`.load()`, `.play()`).
+- Handling modern browser autoplay policies and promise rejections safely with `.catch()`.
+
+### 4. Advanced UI & Styling with Tailwind CSS
+- Dynamic drawer menus utilizing CSS transform utilities (`-translate-x-full`) and transitions.
+- Interactive status indicators using Tailwind's `animate-ping` keyframe animations.
+- Scroll locking techniques (`overflow-hidden`) when modal overlays are active.
+
+---
+
+## 🚀 Getting Started
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-username/smart-stream.git
+   cd smart-stream
+   ```
+
+2. **Run locally:**
+   Simply open `index.html` in your browser (preferably using a local dev server like VS Code **Live Server** to enable ES6 module imports).
+
+---
+
+<div align="center">
+
+Made with ❤️ and JavaScript
+
+</div>
