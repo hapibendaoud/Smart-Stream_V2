@@ -18,26 +18,49 @@
                 <div id="menu_icon" class="text-3xl cursor-pointer">&#9776;</div>
                 <p class="text-lg uppercase">Channels</p>
             </div>
-            <section id="channels_section" class="flex flex-col w-full gap-2 overflow-y-auto max-h-56 md:max-h-full scrollbar-none [&::-webkit-scrollbar]:hidden">
+            <section id="channels_section" class=" flex flex-col w-full gap-2 overflow-y-auto max-h-56 md:max-h-full scrollbar-none [&::-webkit-scrollbar]:hidden">
                 <!-- Channels card -->
-                <!-- <article class="active flex items-center justify-between p-2 border border-[#07209C] rounded-lg">
-                    <div class="flex gap-5 items-center h-fit w-full">
-                        <div class="bg-[#0B32F4] w-10 h-10 flex items-center justify-center text-2xl rounded-lg italic shrink-0">
-                            <img src="https://images.seeklogo.com/logo-png/65/2/2m-logo-png_seeklogo-656486.png" alt="logo">
+                <!-- <article class="relative flex items-center justify-between p-2 border border-[#07209C] rounded-lg">
+                    <div class="flex items-center justify-between gap-4 w-full min-w-0">
+                        <div class="flex gap-5 items-center h-fit min-w-0 flex-1">
+                            <div class="bg-[#0B32F4] w-10 h-10 flex items-center justify-center text-lg font-bold rounded-lg italic text-white shrink-0">
+                                SB
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <div class="flex items-center gap-2 min-w-0">
+                                    <h2 class="font-bold text-white truncate min-w-0">channel name</h2>
+                                    <div class="relative shrink-0">
+                                        <div class="absolute w-2 h-2 bg-[#2749F5] rounded-2xl animate-ping"></div>
+                                        <div class="relative w-2 h-2 bg-[#2749F5] rounded-2xl"></div>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-gray-400 truncate">category - 1000</p>
+                            </div>
                         </div>
-                        <div>
-                            <h2 class="font-bold">Name Channel</h2>
-                            <p class="text-xs text-gray-400">Description</p>
+
+
+                        <div class="flex items-center gap-2 shrink-0">
+                            <button class="rounded-lg px-1 cursor-pointer text-amber-300 text-2xl">★</button>
+                            <div class="relative">
+                                <button onclick="toggleMenu(this)" class="p-1.5 text-gray-300 hover:text-white hover:bg-[#07209C]/50 rounded-lg cursor-pointer transition">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+                                    </svg>
+                                </button>
+
+                                <div class="popup-menu hidden absolute right-0 mt-2 w-32 bg-[#041259] border border-[#07209C] rounded-lg shadow-xl z-50 overflow-hidden">
+                                    <button class="w-full text-left px-4 py-2 text-sm text-white hover:bg-[#0B32F4] flex items-center gap-2 cursor-pointer transition">
+                                        <span>✏️</span> Edit
+                                    </button>
+                                    <button class="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-red-500/20 flex items-center gap-2 cursor-pointer transition border-t border-[#07209C]/50">
+                                        <span>🗑️</span> Remove
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex items-center gap-1 shrink-0">
-                        <div class="relative">
-                            <div class="absolute w-2 h-2 bg-[#2749F5] rounded-2xl animate-ping"></div>
-                            <div class="relative w-2 h-2 bg-[#2749F5] rounded-2xl"></div>
-                        </div>
-                        <p class="text-xs text-gray-400">10.1k</p>
                     </div>
                 </article> -->
+
                 <div id="channels_loading" class="channels_loading flex flex-col gap-3">
                     <div class="mx-auto w-full max-w-sm rounded-md border border-[#050E70] p-4">
                         <div class="flex animate-pulse space-x-4">
@@ -148,23 +171,21 @@
                 <div class="flex items-center p-2 bg-[#030E44] rounded-lg">
                     <div class="flex gap-5 items-center h-fit w-full">
                         <div class="bg-[#0B32F4] w-10 h-10 flex items-center justify-center text-2xl rounded-lg italic shrink-0">SB</div>
-                        <div class="truncate">
-                            <h2 id="name_channel" class="font-bold text-lg truncate">Name Channel</h2>
-                            <p id="desc_chaennel" class="text-xs text-gray-400">
-                                <div id="loading_name" class="h-2 animate-pulse rounded bg-[#0B1FF4]"></div>
-                            </p>
+                        <div class="">
+                            <h2 id="name_channel" class="font-bold text-lg">Name Channel</h2>
+                            <p id="desc_chaennel" class="text-xs text-gray-400"></p>
                         </div>
                     </div>
                 </div>
                 
-                <div class="flex flex-col justify-center p-2 bg-[#030E44] rounded-lg">
+                <div class="p-2 bg-[#030E44] rounded-lg">
                     <p class="text-gray-400 text-xs">Now Playing</p>
-                    <h2 id="playing_now" class="text-lg font-bold truncate"><div id="loading_palying" class="h-2 animate-pulse rounded bg-[#0B1FF4]"></div></h2>
+                    <h2 id="playing_now" class="text-lg font-bold truncate"></h2>
                 </div>
 
                 <div class="p-2 bg-[#030E44] rounded-lg">
                     <p class="text-gray-400 text-xs">category</p>
-                    <h2 id="category_name" class="text-lg font-bold truncate"><div id="loading_category" class="h-2 animate-pulse rounded bg-[#0B1FF4]"></div></h2>
+                    <h2 id="category_name" class="text-lg font-bold truncate"></h2>
                 </div>
 
                 <div class="p-2 bg-[#030E44] rounded-lg">
@@ -173,7 +194,51 @@
                 </div>
             </div>
         </main>
+        <div id="popup" class="hidden flex items-center justify-center z-50 fixed inset-0 w-full h-full bg-[#0e0b32]/18 backdrop-blur-md backdrop-saturate-159 border border-[#0e0b32]/0 shadow-[0_8px_32px_0_rgba(0,0,0,0)] p-4">
+                <div class="w-full max-w-[520px] h-fit flex flex-col py-6 sm:py-8 px-6 sm:px-10 bg-gray-900 rounded-3xl gap-4 sm:gap-5 max-h-[90vh] overflow-y-auto">
+                    <div class="flex items-center justify-between">
+                        <h1 class="text-2xl sm:text-3xl font-bold text-gray-300 italic">New dish</h1>
+                        <p id="close_popup" class="text-gray-200 text-2xl w-10 h-10 bg-gray-700 flex justify-center items-center rounded-3xl cursor-pointer">x</p>
+                    </div>
+                    <label for="Dish-name" class="text-gray-400">Dish name</label>
+                    <input type="text" id="dish_name" placeholder="Dish Name" class="text-gray-200 bg-gray-700 py-2.5 px-3 rounded-2xl focus:outline-none focus:ring-0">
+                    <label for="Category" class="text-gray-400 ">Category</label>
+                    <select name="Category" id="Category" class="text-gray-400 bg-gray-700 py-2.5 px-3 rounded-2xl focus:outline-none focus:ring-0">
+                        <option value="Starter">Starter</option>
+                        <option value="Main">Main</option>
+                        <option value="Dessert">Dessert</option>
+                    </select>
+                    <label for="Price" class="text-gray-400">Price</label>
+                    <input type="text" id="Price" placeholder="Price" class="text-gray-200 bg-gray-700 py-2.5 px-3 rounded-2xl focus:outline-none focus:ring-0">
+                    <label for="Quality-badge" class="text-gray-400">Quality badge</label>
+                    <select name="Quality-badge" id="quality_Badge" class="text-gray-400 bg-gray-700 py-2.5 px-3 rounded-2xl focus:outline-none focus:ring-0">
+                        <option value="Vegetarian">Vegetarian</option>
+                        <option value="Homemade">Homemade</option>
+                        <option value="Healthy">Healthy</option>
+                        <option value="Spicy">Spicy</option>
+                    </select>
+                    <div class="flex items-center justify-end">
+                        <bottun type="submit" id="cancel_popup" class="bg-gray-700 px-4 py-2 rounded-3xl text-white cursor-pointer hover:bg-gray-400">Cancel</bottun>
+                        <bottun id="save_btn_popup" class="bg-red-700 px-4 py-2 rounded-3xl text-white ml-5 cursor-pointer hover:bg-red-400">Save</bottun>
+                    </div>
+                </div>
+            </div>
     </main>
     <script type="module" src="js/main.js"></script>
+     <!-- <script>
+    function toggleMenu(button) {
+        const menu = button.nextElementSibling;
+        document.querySelectorAll('.popup-menu').forEach(m => {
+            if (m !== menu) m.classList.add('hidden');
+        });
+        menu.classList.toggle('hidden');
+    }
+
+    window.addEventListener('click', function(e) {
+        if (!e.target.closest('.relative')) {
+            document.querySelectorAll('.popup-menu').forEach(m => m.classList.add('hidden'));
+        }
+    });
+</script> -->
 </body>
 </html>

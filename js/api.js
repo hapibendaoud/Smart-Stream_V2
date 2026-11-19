@@ -1,6 +1,6 @@
-// const url = "data/data.json";
 const url = "https://6af42fce55a1de7dcf03ae98.mockapi.io/smartStream/channels";
-// const url = "https://api.npoint.io/b545f35bb04e2fe4348c";
+
+export const favorite = [];
 
 export async function getData(){
     try{
@@ -13,23 +13,59 @@ export async function getData(){
         if(!data){
             throw new error("Error Data type!!");
         }
-        console.log("Service: ",data);
+        console.log(response.status);
         
         return data;
     } catch(e){
         console.error(e);
     } finally {
         const loading_channels = document.getElementById("channels_loading");
-        const loading_name = document.getElementById("loading_name");
-        const loading_palying = document.getElementById("loading_palying");
-        const loading_category = document.getElementById("loading_category");
-        loading_channels.classList.add("hidden");
-        loading_name.classList.add("hidden");
-        loading_palying.classList.add("hidden");
-        loading_category.classList.add("hidden");
+        loading_channels?.classList.add("hidden");
     }
 }
 
-async function updateChannel(params) {
-    
+export async function addToFavorite(data, id) {
+    try {
+        const response = await fetch(`${url}/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({isFavorite: data}) 
+        });
+
+        if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log('Success:');
+        return result;
+    } catch (error) {
+        console.error('Error updating resource:', error);
+    }
 }
+// addToFavorite(true , 1);
+
+export async function addToBlachList(data, id) {
+    try {
+        const response = await fetch(`${url}/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({isBlackListe: data})
+        });
+
+        if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log('Success:', result);
+        return result;
+    } catch (error) {
+        console.error('Error updating resource:', error);
+    }
+}
+// addToBlachList(true, 1);
