@@ -10,3 +10,7 @@ body{
     background-color: #2448fe;
     border: rgb(126, 126, 168) 1px solid;
 }
+.active_channel{
+    background-color: #000d4d;
+    border: rgb(126, 126, 168) 1px solid;
+}

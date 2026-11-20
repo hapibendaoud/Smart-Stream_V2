@@ -12,32 +12,58 @@
     <main class="w-full min-h-screen flex flex-col md:flex-row relative">
         <!-- Side nav -->
         <nav class="w-full md:w-100 shrink-0 h-auto md:h-screen flex flex-col bg-[#010518] border-b md:border-b-0 md:border-r border-[#051770] px-4 md:px-8 py-4 sticky md:fixed top-0 z-30">
-            <h2 class="text-3xl font-bold text-white italic">Smart <span class="text-blue-600">Stream</span></h2>
+            <div class="flex justify-between">
+                <h2 class="text-3xl font-bold text-white italic">Smart <span class="text-blue-600">Stream</span></h2>
+                <button id="add_btn" class="flex items-center justify-center bg-[#0B1FF4] px-2.5 rounded-2xl text-2xl font-bold hover:bg-[#4554ff] cursor-pointer pb-1">+</button>
+            </div>
             <input id="search" class="text-white text-xs my-4 px-4 py-2.5 rounded-2xl border border-[#051770] outline-none focus:right-0 bg-transparent" placeholder="Search" type="text">
             <div class="flex pb-4 justify-between items-center">
                 <div id="menu_icon" class="text-3xl cursor-pointer">&#9776;</div>
                 <p class="text-lg uppercase">Channels</p>
             </div>
-            <section id="channels_section" class="flex flex-col w-full gap-2 overflow-y-auto max-h-56 md:max-h-full scrollbar-none [&::-webkit-scrollbar]:hidden">
+            <section id="channels_section" class="min-h-150 flex flex-col w-full gap-2 overflow-y-auto max-h-56 md:max-h-full scrollbar-none [&::-webkit-scrollbar]:hidden pb-30">
                 <!-- Channels card -->
-                <!-- <article class="active flex items-center justify-between p-2 border border-[#07209C] rounded-lg">
-                    <div class="flex gap-5 items-center h-fit w-full">
-                        <div class="bg-[#0B32F4] w-10 h-10 flex items-center justify-center text-2xl rounded-lg italic shrink-0">
-                            <img src="https://images.seeklogo.com/logo-png/65/2/2m-logo-png_seeklogo-656486.png" alt="logo">
+                <!-- <article class="relative flex items-center justify-between p-2 border border-[#07209C] rounded-lg">
+                    <div class="flex items-center justify-between gap-4 w-full min-w-0">
+                        <div class="flex gap-5 items-center h-fit min-w-0 flex-1">
+                            <div class="bg-[#0B32F4] w-10 h-10 flex items-center justify-center text-lg font-bold rounded-lg italic text-white shrink-0">
+                                SB
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <div class="flex items-center gap-2 min-w-0">
+                                    <h2 class="font-bold text-white truncate min-w-0">channel name</h2>
+                                    <div class="relative shrink-0">
+                                        <div class="absolute w-2 h-2 bg-[#2749F5] rounded-2xl animate-ping"></div>
+                                        <div class="relative w-2 h-2 bg-[#2749F5] rounded-2xl"></div>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-gray-400 truncate">category - 1000</p>
+                            </div>
                         </div>
-                        <div>
-                            <h2 class="font-bold">Name Channel</h2>
-                            <p class="text-xs text-gray-400">Description</p>
+
+
+                        <div class="flex items-center gap-2 shrink-0">
+                            <button class="rounded-lg px-1 cursor-pointer text-amber-300 text-2xl">★</button>
+                            <div class="relative">
+                                <button onclick="toggleMenu(this)" class="p-1.5 text-gray-300 hover:text-white hover:bg-[#07209C]/50 rounded-lg cursor-pointer transition">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+                                    </svg>
+                                </button>
+
+                                <div class="popup-menu hidden absolute right-0 mt-2 w-32 bg-[#041259] border border-[#07209C] rounded-lg shadow-xl z-50 overflow-hidden">
+                                    <button class="w-full text-left px-4 py-2 text-sm text-white hover:bg-[#0B32F4] flex items-center gap-2 cursor-pointer transition">
+                                        <span>✏️</span> Edit
+                                    </button>
+                                    <button class="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-red-500/20 flex items-center gap-2 cursor-pointer transition border-t border-[#07209C]/50">
+                                        <span>🗑️</span> Remove
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex items-center gap-1 shrink-0">
-                        <div class="relative">
-                            <div class="absolute w-2 h-2 bg-[#2749F5] rounded-2xl animate-ping"></div>
-                            <div class="relative w-2 h-2 bg-[#2749F5] rounded-2xl"></div>
-                        </div>
-                        <p class="text-xs text-gray-400">10.1k</p>
                     </div>
                 </article> -->
+
                 <div id="channels_loading" class="channels_loading flex flex-col gap-3">
                     <div class="mx-auto w-full max-w-sm rounded-md border border-[#050E70] p-4">
                         <div class="flex animate-pulse space-x-4">
@@ -114,7 +140,7 @@
         </nav>
 
         <!-- Catalog side bar -->
-        <div id="category_popup" class="fixed left-0 top-0 flex flex-col w-72 md:w-60 h-full bg-[#051770] p-2.5 gap-y-5 z-50 transform -translate-x-full transition-transform duration-300 ease-in-out shadow-xl">
+        <div id="category_popup" class="fixed left-0 top-0 flex flex-col w-72 md:w-60 h-full bg-[#051770] p-2.5 gap-y-4 z-50 transform -translate-x-full transition-transform duration-300 ease-in-out shadow-xl">
             <div class="flex items-center justify-between">
                 <h1 class="uppercase font-bold text-2xl">Category</h1>
                 <div id="close_popup" class="w-6 h-6 bg-[#2749F5] flex items-center justify-center pb-1 rounded-2xl cursor-pointer">x</div>
@@ -125,6 +151,20 @@
                     <div class="relative w-4 h-4 bg-[#2749F5] rounded-2xl"></div>
                 </div>
                 <h2 class="italic uppercase">All Channels</h2>
+            </div>
+            <div id="favorite_channels" class="flex items-center gap-2 border border-[#0929C8] p-1 rounded-lg cursor-pointer hover:bg-[#071B9C]">
+                <div class="relative px-4">
+                    <div class="absolute w-4 h-4 bg-[#2749F5] rounded-2xl animate-ping"></div>
+                    <div class="relative w-4 h-4 bg-[#2749F5] rounded-2xl"></div>
+                </div>
+                <h2 class="italic uppercase">favorite</h2>
+            </div>
+            <div id="black_list_channels" class="flex items-center gap-2 border border-[#0929C8] p-1 rounded-lg cursor-pointer hover:bg-[#071B9C]">
+                <div class="relative px-4">
+                    <div class="absolute w-4 h-4 bg-[#2749F5] rounded-2xl animate-ping"></div>
+                    <div class="relative w-4 h-4 bg-[#2749F5] rounded-2xl"></div>
+                </div>
+                <h2 class="italic uppercase">black list</h2>
             </div>
             <div id="category_div" class="flex flex-col overflow-y-auto scrollbar-none [&::-webkit-scrollbar]:hidden">
             </div>
@@ -141,23 +181,21 @@
                 <div class="flex items-center p-2 bg-[#030E44] rounded-lg">
                     <div class="flex gap-5 items-center h-fit w-full">
                         <div class="bg-[#0B32F4] w-10 h-10 flex items-center justify-center text-2xl rounded-lg italic shrink-0">SB</div>
-                        <div class="truncate">
-                            <h2 id="name_channel" class="font-bold text-lg truncate">Name Channel</h2>
-                            <p id="desc_chaennel" class="text-xs text-gray-400">
-                                <div id="loading_name" class="h-2 animate-pulse rounded bg-[#0B1FF4]"></div>
-                            </p>
+                        <div class="">
+                            <h2 id="name_channel" class="font-bold text-lg">loading...</h2>
+                            <p id="desc_chaennel" class="text-xs text-gray-400">loading...</p>
                         </div>
                     </div>
                 </div>
                 
-                <div class="flex flex-col justify-center p-2 bg-[#030E44] rounded-lg">
+                <div class="p-2 bg-[#030E44] rounded-lg">
                     <p class="text-gray-400 text-xs">Now Playing</p>
-                    <h2 id="playing_now" class="text-lg font-bold truncate"><div id="loading_palying" class="h-2 animate-pulse rounded bg-[#0B1FF4]"></div></h2>
+                    <h2 id="playing_now" class="text-lg font-bold truncate">loading...</h2>
                 </div>
 
                 <div class="p-2 bg-[#030E44] rounded-lg">
                     <p class="text-gray-400 text-xs">category</p>
-                    <h2 id="category_name" class="text-lg font-bold truncate"><div id="loading_category" class="h-2 animate-pulse rounded bg-[#0B1FF4]"></div></h2>
+                    <h2 id="category_name" class="text-lg font-bold truncate">loading...</h2>
                 </div>
 
                 <div class="p-2 bg-[#030E44] rounded-lg">
@@ -166,6 +204,50 @@
                 </div>
             </div>
         </main>
+        <div id="popup" class="hidden fixed inset-0 z-50 w-full h-full bg-[#010518]/60 backdrop-blur-md backdrop-saturate-150 flex items-center justify-center p-4">
+            <div class="w-full max-w-[520px] h-fit flex flex-col py-6 sm:py-8 px-6 sm:px-10 bg-[#010518] border border-[#0929C8] rounded-3xl gap-4 sm:gap-5 max-h-[90vh] overflow-y-auto">
+                <div class="flex items-center justify-between">
+                    <h1 class="text-2xl sm:text-3xl font-bold text-gray-300 italic">New Channel</h1>
+                    <button type="button" id="close_popup_of_add" class="close_popup_of_add pb-1 text-gray-200 text-2xl w-10 h-10 bg-gray-700 hover:bg-gray-600 flex justify-center items-center rounded-3xl cursor-pointer transition">
+                        &times;
+                    </button>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label for="channel_name" class="text-gray-400 text-sm uppercase">Channel Name</label>
+                    <input type="text" id="channel_name" placeholder="Enter channel name" class="text-gray-200 bg-gray-700 py-2.5 px-3 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#0929C8]">
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label for="channel_category" class="text-gray-400 text-sm uppercase">Category</label>
+                    <input type="text" id="channel_category" placeholder="Enter channel category" class="text-gray-200 bg-gray-700 py-2.5 px-3 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#0929C8]">
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label for="channel_country" class="text-gray-400 text-sm uppercase">Country</label>
+                    <input type="text" id="channel_country" placeholder="Enter country (e.g. Morocco)" class="text-gray-200 bg-gray-700 py-2.5 px-3 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#0929C8]">
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label for="channel_country_code" class="text-gray-400 text-sm uppercase">Country Code</label>
+                    <input type="text" id="channel_country_code" maxlength="3" placeholder="Enter country code (e.g. MA)" class="text-gray-200 bg-gray-700 py-2.5 px-3 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#0929C8]">
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label for="channel_stream_url" class="text-gray-400 text-sm uppercase">Stream URL</label>
+                    <input type="url" id="channel_stream_url" placeholder="https://example.com/stream.m3u8" class="text-gray-200 bg-gray-700 py-2.5 px-3 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#0929C8]">
+                </div>
+
+                <div class="flex items-center justify-end gap-3 pt-2">
+                    <button type="button" class="close_popup_of_add bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-3xl text-white cursor-pointer transition">
+                        Cancel
+                    </button>
+                    <button type="button" id="save_btn_popup" class="bg-blue-600 hover:bg-blue-500 px-5 py-2 rounded-3xl text-white font-semibold cursor-pointer transition">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
     </main>
     <script type="module" src="js/main.js"></script>
 </body>
